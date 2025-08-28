@@ -11,6 +11,7 @@ on:
 env:
   DOCKER_IMAGE: iconical/swush-ce
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
+  DOCR_IMAGE: registry.digitalocean.com/iconical/swush-ce
 
 jobs:
   docker:
@@ -44,6 +45,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install doctl (DigitalOcean CLI)
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DOCR
+        run: doctl registry login
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
@@ -51,6 +60,7 @@ jobs:
           images: |
             ${{ env.DOCKER_IMAGE }}
             ${{ env.GHCR_IMAGE }}
+            ${{ env.DOCR_IMAGE }}
           tags: |
             type=semver,pattern={{version}},prefix=
             type=semver,pattern=v{{version}}
