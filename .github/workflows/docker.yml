@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: iconical/swush
+  DOCKER_IMAGE: iconical/swush-ce
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
 
 jobs:
