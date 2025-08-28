@@ -1,5 +1,10 @@
 FROM oven/bun:1 AS deps
 WORKDIR /app
+RUN echo "registry=https://registry.npmjs.org/" > /root/.npmrc
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  python3 build-essential ca-certificates \
+  && ln -sf /usr/bin/python3 /usr/bin/python \
+  && rm -rf /var/lib/apt/lists/*
 COPY package.json bun.lockb* ./
 RUN bun install --frozen-lockfile || bun install
 
