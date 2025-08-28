@@ -1,6 +1,6 @@
 services:
   app:
-    image: iconical/swush:latest
+    image: iconical/swush-ce:latest
     container_name: swush-app
     restart: unless-stopped
     environment:
