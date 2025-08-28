@@ -1,0 +1,16 @@
+{
+  "name": "Swush",
+  "short_name": "Swush",
+  "description": "A sharing platform",
+  "start_url": "/vault",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#8B5FAA",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}

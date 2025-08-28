@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: swush
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd="pg_isready -U postgres -d swush"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    env:
+      CI: true
+      NEXT_TELEMETRY_DISABLED: 1
+      NODE_ENV: production
+      NEXT_PUBLIC_APP_NAME: Swush
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      NEXT_PUBLIC_SUPPORT_EMAIL: help@iconical.dev
+      NEXT_PUBLIC_SUPPORT_NAME: Swush Support
+      UPLOAD_ROOT: /tmp/uploads
+      CORS_ORIGINS: http://localhost:3000
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/swush?sslmode=disable
+      AUTH_SECRET: dev-dev-dev-dev-dev-dev
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install deps
+        run: bun install --frozen-lockfile || bun install
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Typecheck
+        run: bun x tsc --noEmit
+
+      - name: Build
+        run: bun next build

@@ -1,0 +1,12 @@
+changelog:
+  categories:
+    - title: 🚀 Features
+      labels: [feat, feature]
+    - title: 🐛 Fixes
+      labels: [fix, bug]
+    - title: 🧰 Chores & Maintenance
+      labels: [chore, build, ci, docs, refactor]
+    - title: ♻️ Reverts
+      labels: [revert]
+    - title: 🔐 Security
+      labels: [security]

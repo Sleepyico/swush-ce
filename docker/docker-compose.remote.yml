@@ -1,0 +1,47 @@
+services:
+  app:
+    image: iconical/swush:latest
+    container_name: swush-app
+    restart: unless-stopped
+    environment:
+      # --- Core (Required) ---
+      NODE_ENV: production
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      NEXT_PUBLIC_SUPPORT_EMAIL: help@iconical.dev
+      NEXT_PUBLIC_SUPPORT_NAME: Swush Support
+      CORS_ORIGINS: http://localhost:3000
+      UPLOAD_ROOT: /data/uploads
+
+      # --- Database (Required) ---
+      DATABASE_URL: postgresql://your-provider...
+
+      # --- Auth (Required) ---
+      AUTH_SECRET: <your-auth-secret>
+
+      # --- SMTP (Required, maybe use Gmail Smtp) ---
+      SMTP_HOST: smtp.provider.com
+      SMTP_PORT: 587
+      SMTP_USER: "<your-email>@provider.com"
+      SMTP_PASS: "<your-email-password>"
+      SMTP_FROM: "Swush <noreply@iconical.dev>"
+
+      # --- APIs (Essentials) ---
+      TMDB_API_KEY: <your-tmdb-api-key>
+      RAWG_API_KEY: <your-rawg-api-key>
+      STEAM_API_KEY: <your-steam-api-key>
+      STEAM_LINK_SECRET: <your-steam-link-secret>
+
+      # --- POSTHOG (Optional) ---
+      NEXT_PUBLIC_POSTHOG_KEY: <your-posthog-key>
+      NEXT_PUBLIC_POSTHOG_HOST: <your-posthog-host>
+
+      # --- EMAIL TOGGLES (Optional) ---
+      DISABLE_LIMITS_EMAILS: <yes/no>
+
+    ports:
+      - "3419:3000"
+    volumes:
+      - swush-uploads:/data/uploads
+
+volumes:
+  swush-uploads:
