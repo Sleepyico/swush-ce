@@ -50,7 +50,7 @@ import {
 } from "@/components/Upload/FolderInputWithSuggestions";
 import { formatBytes, splitFilename } from "@/lib/helpers";
 import PageLayout from "@/components/Common/PageLayout";
-import { APP_URL } from "@/lib/constant";
+import { useConfig } from "@/hooks/use-config";
 
 type Summary = {
   resources: {
@@ -154,6 +154,7 @@ function useApplySummary() {
 }
 
 export default function UploadClient() {
+  const config = useConfig();
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<
     (UploadWrapper & {
@@ -520,7 +521,7 @@ export default function UploadClient() {
                   setFiles((prev) => {
                     const next = [...prev];
                     const shareUrl = (slug: string) =>
-                      `${APP_URL || ""}/x/${encodeURIComponent(slug)}`;
+                      `${config?.appUrl || ""}/x/${encodeURIComponent(slug)}`;
                     const shareUrlValue = result?.slug
                       ? shareUrl(result.slug)
                       : next[idx]?.shareUrl;

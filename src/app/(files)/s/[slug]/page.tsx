@@ -33,7 +33,6 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { defaultMetadata } from "@/lib/head";
 import ExternalLayout from "@/components/Common/ExternalLayout";
-import { APP_URL } from "@/lib/constant";
 
 export const dynamic = "force-dynamic";
 
@@ -54,7 +53,7 @@ export async function generateMetadata({
       ...(defaultMetadata.openGraph ?? {}),
       title: `Swush • ${slug}`,
       description: `Redirects to something special for ${slug}`,
-      url: `${APP_URL}/s/${slug}`,
+      url: `${process.env.APP_URL}/s/${slug}`,
     },
     twitter: {
       ...(defaultMetadata.twitter ?? {}),

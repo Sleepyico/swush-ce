@@ -87,11 +87,11 @@ cp example.env .env
 - `CORS_ORIGINS` — Comma-separated list of allowed CORS origins.
 - `ENABLE_FUNNY_SLUGS` — Enable generation of funny slugs (e.g., YodaCrazyFalconRider) instead of random strings.
 
-- `NEXT_PUBLIC_APP_NAME` — Name of your application.
-- `NEXT_PUBLIC_APP_URL` — Base URL of your app.
+- `APP_NAME` — Name of your application.
+- `APP_URL` — Base URL of your app.
 
-- `NEXT_PUBLIC_SUPPORT_NAME` — Support name.
-- `NEXT_PUBLIC_SUPPORT_EMAIL` — Support email address.
+- `SUPPORT_NAME` — Support name.
+- `SUPPORT_EMAIL` — Support email address.
 
 #### SMTP / Email
 - `SMTP_HOST` — Hostname of the SMTP server.
@@ -142,7 +142,7 @@ docker compose -f docker-compose.yml -f docker-compose.postgres.yml up -d --buil
    - Use a reverse proxy like Nginx, Traefik, or Caddy with HTTPS enabled (Let's Encrypt recommended).
 
 2. **Environment Variables**
-   - Set `NEXT_PUBLIC_APP_URL` to your domain with HTTPS.
+   - Set `APP_URL` to your domain with HTTPS.
    - Securely configure `AUTH_SECRET` and database credentials.
 
 3. **Database**

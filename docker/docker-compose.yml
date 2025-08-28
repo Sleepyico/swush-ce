@@ -27,9 +27,9 @@ services:
     environment:
       # --- Core (Required) ---
       NODE_ENV: production
-      NEXT_PUBLIC_APP_URL: http://localhost:3000
-      NEXT_PUBLIC_SUPPORT_EMAIL: help@swush.local
-      NEXT_PUBLIC_SUPPORT_NAME: Swush Support
+      APP_URL: http://localhost:3000
+      SUPPORT_EMAIL: help@swush.local
+      SUPPORT_NAME: Swush Support
       CORS_ORIGINS: http://localhost:3000
       UPLOAD_ROOT: /data/uploads
 
@@ -53,8 +53,8 @@ services:
       STEAM_LINK_SECRET: test
 
       # --- POSTHOG (Optional) ---
-      NEXT_PUBLIC_POSTHOG_KEY: test
-      NEXT_PUBLIC_POSTHOG_HOST: https://app.posthog.com
+      POSTHOG_KEY: test
+      POSTHOG_HOST: https://app.posthog.com
 
       # --- EMAIL TOGGLES (Optional) ---
       DISABLE_LIMITS_EMAILS: yes

@@ -34,7 +34,6 @@ import {
 import { toast } from "sonner";
 import Image from "next/image";
 import bgImage from "../../../public/images/bg.png";
-import { APP_NAME, SUPPORT_EMAIL } from "@/lib/constant";
 import {
   InputOTP,
   InputOTPGroup,
@@ -42,6 +41,7 @@ import {
 } from "@/components/ui/input-otp";
 import ThemeButton from "../Common/ThemeButton";
 import Link from "next/link";
+import { useConfig } from "@/hooks/use-config";
 
 const schema = z.object({
   emailOrUsername: z
@@ -57,6 +57,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function LoginClient() {
   const router = useRouter();
+  const config = useConfig();
 
   const {
     register,
@@ -96,7 +97,9 @@ export default function LoginClient() {
 
         const cloned = res.clone();
         let json = null;
-        try { json = await res.json(); } catch {}
+        try {
+          json = await res.json();
+        } catch {}
 
         if (res.ok && json?.requires2FA) {
           setTwoFAOpen(true);
@@ -116,7 +119,8 @@ export default function LoginClient() {
         if (res.status === 429) {
           const ra = res.headers.get("Retry-After");
           const seconds = ra ? Number(ra) : NaN;
-          if (!Number.isNaN(seconds) && seconds > 0) message = `Too many attempts. Try again in ${seconds}s`;
+          if (!Number.isNaN(seconds) && seconds > 0)
+            message = `Too many attempts. Try again in ${seconds}s`;
         }
         toast.error(message);
       } catch (err) {
@@ -148,7 +152,9 @@ export default function LoginClient() {
 
       const cloned = res.clone();
       let json = null;
-      try { json = await res.json(); } catch {}
+      try {
+        json = await res.json();
+      } catch {}
       let message = json?.message || json?.error || "";
       if (!message) {
         const text = await cloned.text().catch(() => "");
@@ -157,7 +163,8 @@ export default function LoginClient() {
       if (res.status === 429) {
         const ra = res.headers.get("Retry-After");
         const seconds = ra ? Number(ra) : NaN;
-        if (!Number.isNaN(seconds) && seconds > 0) message = `Too many attempts. Try again in ${seconds}s`;
+        if (!Number.isNaN(seconds) && seconds > 0)
+          message = `Too many attempts. Try again in ${seconds}s`;
       }
       toast.error(message);
     } catch {
@@ -325,7 +332,7 @@ export default function LoginClient() {
         <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background" />
         <div className="flex flex-col items-center justify-center relative bg-secondary/40 backdrop-blur-md p-4 rounded-lg">
           <h1 className="flex items-center justify-center text-3xl font-bold">
-            Welcome back to {APP_NAME}
+            Welcome back to {config?.appName}
           </h1>
           <span className="text-center text-muted-foreground">
             Please enter your credentials to access your account.
@@ -336,7 +343,10 @@ export default function LoginClient() {
 
           <span className="text-center text-muted-foreground">
             If you are facing any issues, please contact support{" "}
-            <Link href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</Link>.
+            <Link href={`mailto:${config?.supportEmail}`}>
+              {config?.supportEmail}
+            </Link>
+            .
           </span>
         </div>
       </div>

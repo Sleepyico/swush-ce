@@ -15,7 +15,6 @@
  *   limitations under the License.
  */
 
-import { APP_URL } from "../constant";
 import { compare, hash } from "bcryptjs";
 
 export async function hashPassword(pw: string): Promise<string> {
@@ -104,7 +103,7 @@ export async function fetchPageMeta(targetUrl: string): Promise<{
 export function shareUrl(page: string, slug: string | null | undefined) {
   if (!slug) return "";
   if (typeof window === "undefined") return `/${page}/${slug}`;
-  return `${APP_URL}/${page}/${slug}`;
+  return `${process.env.APP_URL}/${page}/${slug}`;
 }
 
 export function randomPassword(length = 16) {

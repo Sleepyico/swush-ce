@@ -24,7 +24,6 @@ import path from "path";
 import { statSync, createReadStream } from "fs";
 import { compare } from "bcryptjs";
 import { getUser } from "@/lib/auth/auth";
-import { APP_URL } from "@/lib/constant";
 import { UPLOAD_ROOT } from "@/lib/api/files";
 
 function safeJoin(base: string, target: string) {
@@ -347,7 +346,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
 
     if (!ok) {
       return NextResponse.redirect(
-        `${APP_URL || ""}/v/${encodeURIComponent(f.slug)}`
+        `${process.env.APP_URL || ""}/v/${encodeURIComponent(f.slug)}`
       );
     }
     return streamFile(f, req, { isPublic, hasPassword, hintedExt });
@@ -355,7 +354,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
 
   if (!isPublic) {
     return NextResponse.redirect(
-      `${APP_URL || ""}/v/${encodeURIComponent(f.slug)}`
+      `${process.env.APP_URL || ""}/v/${encodeURIComponent(f.slug)}`
     );
   }
 

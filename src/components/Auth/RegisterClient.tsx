@@ -28,11 +28,12 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import bgImage from "../../../public/images/bg.png";
-import { APP_NAME, SUPPORT_EMAIL } from "@/lib/constant";
 import ThemeButton from "../Common/ThemeButton";
 import Link from "next/link";
+import { useConfig } from "@/hooks/use-config";
 
 export default function RegisterClient() {
+  const config = useConfig();
   const params = useSearchParams();
   const inviteToken = params.get("invite");
 
@@ -143,7 +144,7 @@ export default function RegisterClient() {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background" />
         <div className="flex flex-col items-center justify-center relative bg-secondary/40 backdrop-blur-md p-4 rounded-lg">
           <h1 className="relative text-3xl font-bold tracking-tight text-center px-6">
-            Welcome to {APP_NAME}
+            Welcome to {config?.appName}
           </h1>
           <span className="text-center text-muted-foreground">
             Please enter your credentials to create your account.
@@ -154,7 +155,10 @@ export default function RegisterClient() {
 
           <span className="text-center text-muted-foreground">
             If you are facing any issues, please contact support{" "}
-            <Link href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</Link>.
+            <Link href={`mailto:${config?.supportEmail}`}>
+              {config?.supportEmail}
+            </Link>
+            .
           </span>
         </div>
       </div>

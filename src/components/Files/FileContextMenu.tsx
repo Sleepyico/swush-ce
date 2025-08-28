@@ -55,7 +55,7 @@ import {
   IconLock,
   IconLockOpen,
 } from "@tabler/icons-react";
-import { APP_URL } from "@/lib/constant";
+import { useConfig } from "@/hooks/use-config";
 
 interface FileContextMenuProps {
   file: Upload;
@@ -69,6 +69,7 @@ export function FileContextMenu({
   onFileDeleted,
 }: FileContextMenuProps) {
   const router = useRouter();
+  const config = useConfig();
   const [renameOpen, setRenameOpen] = useState(false);
   const [tagsOpen, setTagsOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -217,7 +218,7 @@ export function FileContextMenu({
           <DropdownMenuItem
             onClick={() =>
               copyToClipboard(
-                `${APP_URL}/v/${file.slug}`,
+                `${config?.appUrl}/v/${file.slug}`,
                 "Copied View URL to clipboard"
               )
             }
@@ -228,7 +229,7 @@ export function FileContextMenu({
           <DropdownMenuItem
             onClick={() =>
               copyToClipboard(
-                `${APP_URL}/x/${file.slug}`,
+                `${config?.appUrl}/x/${file.slug}`,
                 "Copied Raw URL to clipboard"
               )
             }
@@ -239,7 +240,7 @@ export function FileContextMenu({
           <DropdownMenuItem
             onClick={() =>
               copyToClipboard(
-                `${APP_URL}/x/${file.slug}.${file.mimeType.split("/")[1]}`,
+                `${config?.appUrl}/x/${file.slug}.${file.mimeType.split("/")[1]}`,
                 "Copied Raw URL with .ext"
               )
             }
@@ -256,7 +257,7 @@ export function FileContextMenu({
           <DropdownMenuItem
             onClick={() => {
               const a = document.createElement("a");
-              a.href = `${APP_URL}/x/${file.slug}`;
+              a.href = `${config?.appUrl}/x/${file.slug}`;
               a.download = file.originalName;
               document.body.appendChild(a);
               a.click();

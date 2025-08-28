@@ -21,7 +21,6 @@ import { notFound } from "next/navigation";
 import { headers, cookies } from "next/headers";
 import FileUnlockAndView from "@/components/Files/FileUnlockAndView";
 import ExternalLayout from "@/components/Common/ExternalLayout";
-import { APP_NAME, APP_URL } from "@/lib/constant";
 import { formatBytes } from "@/lib/helpers";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +36,7 @@ export async function generateMetadata({
 
   let file: FileDto | null = null;
   try {
-    const res = await fetch(`${APP_URL}/api/files/${slug}`, {
+    const res = await fetch(`${process.env.APP_URL}/api/files/${slug}`, {
       cache: "no-store",
       headers: {
         "x-no-audit": "1",
@@ -52,24 +51,26 @@ export async function generateMetadata({
   )} to show you this.`;
   const isLocked = !file || !file.isPublic || Boolean(file.hasPassword);
   const ogImage = isLocked
-    ? `${APP_URL}/images/lock.jpg`
-    : `${APP_URL}/x/${slug}`;
+    ? `${process.env.APP_URL}/images/lock.jpg`
+    : `${process.env.APP_URL}/x/${slug}`;
 
   const ownerUsername = file?.ownerUsername;
   const ownerDisplay = file?.ownerDisplayName || ownerUsername;
-  const siteName = ownerDisplay ? `${ownerDisplay} on ${APP_NAME}` : APP_NAME;
+  const siteName = ownerDisplay
+    ? `${ownerDisplay} on ${process.env.APP_NAME}`
+    : process.env.APP_NAME;
 
   return {
     ...defaultMetadata,
     title: sizeText,
-    description: `View a shared file on ${APP_NAME}.`,
+    description: `View a shared file on ${process.env.APP_NAME}.`,
     robots: { index: false, follow: true },
     alternates: { canonical: `/v/${slug}` },
     openGraph: {
       title: sizeText,
       siteName: siteName,
-      description: `View a shared file on ${APP_NAME}.`,
-      url: `${APP_URL}/v/${slug}`,
+      description: `View a shared file on ${process.env.APP_NAME}.`,
+      url: `${process.env.APP_URL}/v/${slug}`,
       images: [
         {
           url: ogImage,
@@ -81,7 +82,7 @@ export async function generateMetadata({
     },
     twitter: {
       title: `${sizeText}`,
-      description: `View a shared file on ${APP_NAME}.`,
+      description: `View a shared file on ${process.env.APP_NAME}.`,
       card: "summary_large_image",
       images: [ogImage],
       creator: "@sleepyiconical",

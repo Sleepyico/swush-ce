@@ -23,9 +23,10 @@ import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { DBInviteToken } from "@/db/schema";
 import PageLayout from "../Common/PageLayout";
-import { APP_URL } from "@/lib/constant";
+import { useConfig } from "@/hooks/use-config";
 
 export default function AdminInvites() {
+  const config = useConfig();
   const [invites, setInvites] = useState<DBInviteToken[] | null>(null);
   const [invLoading, setInvLoading] = useState(false);
   const [invForm, setInvForm] = useState({
@@ -162,7 +163,7 @@ export default function AdminInvites() {
             ) : (
               <div className="space-y-2">
                 {(invites ?? []).map((inv) => {
-                  const inviteUrl = `${APP_URL}/register?invite=${inv.token}`;
+                  const inviteUrl = `${config?.appUrl}/register?invite=${inv.token}`;
                   const expired = new Date(inv.expiresAt) < new Date();
                   const usageText =
                     inv.maxUses == null

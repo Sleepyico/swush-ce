@@ -32,7 +32,6 @@ import {
   sendWelcomeEmail,
   sendLoginAlertEmail,
 } from "@/lib/email";
-import { APP_URL } from "@/lib/constant";
 import { getServerSettings, isUsernamePreserved } from "@/lib/settings";
 import { getClientIp } from "@/lib/security/ip";
 
@@ -284,7 +283,7 @@ export async function requestPasswordReset(req: NextRequest) {
   const token = crypto.randomUUID();
   const expires = new Date(Date.now() + 1000 * 60 * 30);
 
-  const origin = APP_URL || new URL(req.url).origin;
+  const origin = process.env.APP_URL || new URL(req.url).origin;
   const resetLink = `${origin}/reset-password?token=${encodeURIComponent(
     token
   )}`;

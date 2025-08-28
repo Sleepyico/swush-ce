@@ -22,11 +22,14 @@ import { eq } from "drizzle-orm";
 import { authenticator } from "otplib";
 import qrcode from "qrcode";
 import { lucia } from "@/lib/auth/lucia";
-import { APP_NAME } from "@/lib/constant";
 
 export async function generate2FASetup(userId: string, label: string) {
   const secret = authenticator.generateSecret();
-  const otpauth = authenticator.keyuri(label, APP_NAME ?? "Swush", secret);
+  const otpauth = authenticator.keyuri(
+    label,
+    process.env.APP_NAME ?? "Swush",
+    secret
+  );
   const qr = await qrcode.toDataURL(otpauth);
 
   await db

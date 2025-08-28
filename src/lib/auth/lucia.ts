@@ -23,7 +23,7 @@ import { db } from "@/db/client";
 const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
 const isHttps =
   process.env.NODE_ENV === "production" &&
-  process.env.NEXT_PUBLIC_APP_URL?.startsWith("https://");
+  process.env.APP_URL?.startsWith("https://");
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {

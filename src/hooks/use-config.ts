@@ -15,8 +15,23 @@
  *   limitations under the License.
  */
 
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME;
-export const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
+"use client";
+import { useEffect, useState } from "react";
 
-export const SUPPORT_NAME = process.env.NEXT_PUBLIC_SUPPORT_NAME;
-export const SUPPORT_EMAIL = process.env.NEXT_PUBLIC_SUPPORT_EMAIL;
+type Config = {
+  appName: string;
+  appUrl: string;
+  supportName: string;
+  supportEmail: string;
+};
+
+export function useConfig() {
+  const [cfg, setCfg] = useState<Config | null>(null);
+  useEffect(() => {
+    fetch("/api/config")
+      .then((r) => r.json())
+      .then(setCfg)
+      .catch(() => setCfg(null));
+  }, []);
+  return cfg;
+}

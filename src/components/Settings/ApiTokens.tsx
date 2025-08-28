@@ -41,8 +41,8 @@ import {
   TableCell,
   TableCaption,
 } from "@/components/ui/table";
-import { APP_URL } from "@/lib/constant";
 import { IconClipboard, IconX } from "@tabler/icons-react";
+import { useConfig } from "@/hooks/use-config";
 
 type ApiToken = {
   id: string;
@@ -54,6 +54,7 @@ type ApiToken = {
 };
 
 export function ApiTokens() {
+  const config = useConfig();
   const [tokens, setTokens] = useState<ApiToken[]>([]);
   const [loading, setLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -158,7 +159,7 @@ export function ApiTokens() {
   };
 
   const handleExportShareX = (token: ApiToken) => {
-    const origin = typeof window !== "undefined" ? APP_URL : "";
+    const origin = typeof window !== "undefined" ? config?.appUrl : "";
     const sxcu = {
       Version: "14.1.0",
       Name: token.name || "Swush Upload",
@@ -193,7 +194,7 @@ export function ApiTokens() {
   };
 
   const handleExportShareXShortener = (token: ApiToken) => {
-    const origin = typeof window !== "undefined" ? APP_URL : "";
+    const origin = typeof window !== "undefined" ? config?.appUrl : "";
     const sxcu = {
       Version: "14.1.0",
       Name: token.name ? `${token.name} (Shortener)` : "Swush Shortener",

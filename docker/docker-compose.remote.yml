@@ -6,9 +6,9 @@ services:
     environment:
       # --- Core (Required) ---
       NODE_ENV: production
-      NEXT_PUBLIC_APP_URL: http://localhost:3000
-      NEXT_PUBLIC_SUPPORT_EMAIL: help@iconical.dev
-      NEXT_PUBLIC_SUPPORT_NAME: Swush Support
+      APP_URL: http://localhost:3000
+      SUPPORT_EMAIL: help@iconical.dev
+      SUPPORT_NAME: Swush Support
       CORS_ORIGINS: http://localhost:3000
       UPLOAD_ROOT: /data/uploads
 
@@ -32,8 +32,8 @@ services:
       STEAM_LINK_SECRET: <your-steam-link-secret>
 
       # --- POSTHOG (Optional) ---
-      NEXT_PUBLIC_POSTHOG_KEY: <your-posthog-key>
-      NEXT_PUBLIC_POSTHOG_HOST: <your-posthog-host>
+      POSTHOG_KEY: <your-posthog-key>
+      POSTHOG_HOST: <your-posthog-host>
 
       # --- EMAIL TOGGLES (Optional) ---
       DISABLE_LIMITS_EMAILS: <yes/no>

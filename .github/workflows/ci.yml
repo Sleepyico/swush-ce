@@ -28,10 +28,10 @@ jobs:
       CI: true
       NEXT_TELEMETRY_DISABLED: 1
       NODE_ENV: production
-      NEXT_PUBLIC_APP_NAME: Swush
-      NEXT_PUBLIC_APP_URL: http://localhost:3000
-      NEXT_PUBLIC_SUPPORT_EMAIL: help@iconical.dev
-      NEXT_PUBLIC_SUPPORT_NAME: Swush Support
+      APP_NAME: Swush
+      APP_URL: http://localhost:3000
+      SUPPORT_EMAIL: help@iconical.dev
+      SUPPORT_NAME: Swush Support
       UPLOAD_ROOT: /tmp/uploads
       CORS_ORIGINS: http://localhost:3000
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/swush?sslmode=disable

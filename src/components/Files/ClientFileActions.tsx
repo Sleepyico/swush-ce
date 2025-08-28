@@ -18,7 +18,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { APP_URL } from "@/lib/constant";
+import { useConfig } from "@/hooks/use-config";
 import { IconCopy, IconDownload, IconEye } from "@tabler/icons-react";
 import { toast } from "sonner";
 
@@ -37,6 +37,7 @@ export default function ClientFileActions({
   password,
   mime,
 }: Props) {
+  const config = useConfig();
   const downloadHref = password
     ? `${rawUrl}?p=${encodeURIComponent(password)}`
     : rawUrl;
@@ -57,7 +58,7 @@ export default function ClientFileActions({
         variant="outline"
         className="gap-2 rounded-full px-5 shadow-sm"
         onClick={async () => {
-          const url = new URL(viewUrl, APP_URL);
+          const url = new URL(viewUrl, config?.appUrl);
           if (password) {
             url.searchParams.set("p", password);
           }
@@ -75,7 +76,7 @@ export default function ClientFileActions({
         variant="outline"
         className="gap-2 rounded-full px-5 shadow-sm"
         onClick={async () => {
-          const url = new URL(rawUrl, APP_URL);
+          const url = new URL(rawUrl, config?.appUrl);
           if (password) {
             url.searchParams.set("p", password);
           }
@@ -91,7 +92,10 @@ export default function ClientFileActions({
         variant="outline"
         className="gap-2 rounded-full px-5 shadow-sm"
         onClick={async () => {
-          const url = new URL(`${rawUrl}.${mime.split("/")[1]}`, APP_URL);
+          const url = new URL(
+            `${rawUrl}.${mime.split("/")[1]}`,
+            config?.appUrl
+          );
           if (password) {
             url.searchParams.set("p", password);
           }

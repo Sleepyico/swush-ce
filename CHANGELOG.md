@@ -11,6 +11,15 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## v1.0.1 - Giving Them Values For Real 😧
+
+**Released: August 29, 2025**
+
+## Issue Fixes
+- Resolved an issue with the ENV handling in the application.
+
+---
+
 ## v1.0.0 – Community Edition Release 🌐
 
 **Released: August 28, 2025**

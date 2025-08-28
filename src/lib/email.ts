@@ -16,7 +16,9 @@
  */
 
 import nodemailer from "nodemailer";
-import { SUPPORT_EMAIL, SUPPORT_NAME } from "./constant";
+
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL;
+const SUPPORT_NAME = process.env.SUPPORT_NAME;
 
 function escapeHtml(input: string) {
   return String(input)

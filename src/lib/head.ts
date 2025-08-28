@@ -16,8 +16,9 @@
  */
 
 import type { Metadata, Viewport } from "next";
-import { APP_NAME, APP_URL } from "./constant";
 
+const APP_NAME = process.env.APP_NAME;
+const APP_URL = process.env.APP_URL;
 const __rawPublicUrl = APP_URL;
 const __metadataBase = __rawPublicUrl ? new URL(__rawPublicUrl) : undefined;
 
